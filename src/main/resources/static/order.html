@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+    <title>订单⻚⾯</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <style>
+        div{
+            margin: auto;
+            width: 500px;
+        }
+        #score{
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <table>
+    <tr>
+        <td>订单⾦额:</td>
+        <td><input type="text" id="amout" name="amout"/>
+        </td>
+    </tr>
+        <tr>
+            <td>该订单可以累计的积分：</td>
+            <td><span id="score"></span></td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        $("#amout").blur(function () {
+            $.ajax({
+                url:"/saveOrder",
+                type: "get",
+                data: {"amout":$("#amout").val()},
+                dataType:"json",
+                success:function (data) {
+                    //设置积分
+                    $("#score").html(data.score);
+                }
+            });
+        });
+    });
+</script>
+</html>
